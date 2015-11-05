@@ -22,10 +22,10 @@ import javax.jms.TextMessage;
  */
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/promocionVentasTopic"),
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/promocionTopic"),
     @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "durable"),
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "jms/promocionVentasTopic"),
-    @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "jms/promocionVentasTopic")
+    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "jms/promocionTopic"),
+    @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "jms/promocionTopic")
 })
 public class PromocionVentasMessage implements MessageListener {
     

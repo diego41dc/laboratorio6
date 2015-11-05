@@ -16,4 +16,6 @@ public class ServiceCallCenter implements IServiceCallCenterLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    
+    //TODO usar la clase ServicioVenddedoresMock como ejemplo
 }

@@ -5,32 +5,16 @@
     <description/>
     <property name="Name" value="PhysicalTopic"/>
   </admin-object-resource>
-  <admin-object-resource enabled="true" jndi-name="jms/promocionVentasTopic" object-type="user" res-adapter="jmsra" res-type="javax.jms.Topic">
-    <description/>
-    <property name="Name" value="PhysicalTopic"/>
-  </admin-object-resource>
-  <admin-object-resource enabled="true" jndi-name="jms/promocionMercadeoTopic" object-type="user" res-adapter="jmsra" res-type="javax.jms.Topic">
-    <description/>
-    <property name="Name" value="PhysicalTopic"/>
-  </admin-object-resource>
-  <admin-object-resource enabled="true" jndi-name="jms/promocionCallCenterTopic" object-type="user" res-adapter="jmsra" res-type="javax.jms.Topic">
+  <admin-object-resource enabled="true" jndi-name="jms/promocionTopic" object-type="user" res-adapter="jmsra" res-type="javax.jms.Topic">
     <description/>
     <property name="Name" value="PhysicalTopic"/>
   </admin-object-resource>
   <connector-resource enabled="true" jndi-name="jms/cambioDeCargoTopicFactory" object-type="user" pool-name="jms/cambioDeCargoTopicFactory-Connection-Pool">
     <description/>
   </connector-resource>
-  <connector-resource enabled="true" jndi-name="jms/promocionVentasTopicFactory" object-type="user" pool-name="jms/promocionVentasTopicFactory-Connection-Pool">
-    <description/>
-  </connector-resource>
-  <connector-resource enabled="true" jndi-name="jms/promocionMercadeoTopicFactory" object-type="user" pool-name="jms/promocionMercadeoTopicFactory-Connection-Pool">
-    <description/>
-  </connector-resource>
-  <connector-resource enabled="true" jndi-name="jms/promocionCallCenterTopicFactory" object-type="user" pool-name="jms/promocionCallCenterTopicFactory-Connection-Pool">
+  <connector-resource enabled="true" jndi-name="jms/promocionTopicFactory" object-type="user" pool-name="jms/promocionTopicFactory-Connection-Pool">
     <description/>
   </connector-resource>
   <connector-connection-pool associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-definition-name="javax.jms.TopicConnectionFactory" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="true" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="jms/cambioDeCargoTopicFactory-Connection-Pool" pool-resize-quantity="2" resource-adapter-name="jmsra" steady-pool-size="8" validate-atmost-once-period-in-seconds="0"/>
-  <connector-connection-pool associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-definition-name="javax.jms.TopicConnectionFactory" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="true" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="jms/promocionVentasTopicFactory-Connection-Pool" pool-resize-quantity="2" resource-adapter-name="jmsra" steady-pool-size="8" validate-atmost-once-period-in-seconds="0"/>
-  <connector-connection-pool associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-definition-name="javax.jms.TopicConnectionFactory" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="true" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="jms/promocionMercadeoTopicFactory-Connection-Pool" pool-resize-quantity="2" resource-adapter-name="jmsra" steady-pool-size="8" validate-atmost-once-period-in-seconds="0"/>
-  <connector-connection-pool associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-definition-name="javax.jms.TopicConnectionFactory" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="true" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="jms/promocionCallCenterTopicFactory-Connection-Pool" pool-resize-quantity="2" resource-adapter-name="jmsra" steady-pool-size="8" validate-atmost-once-period-in-seconds="0"/>
+  <connector-connection-pool associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-definition-name="javax.jms.TopicConnectionFactory" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="true" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="jms/promocionTopicFactory-Connection-Pool" pool-resize-quantity="2" resource-adapter-name="jmsra" steady-pool-size="8" validate-atmost-once-period-in-seconds="0"/>
 </resources>

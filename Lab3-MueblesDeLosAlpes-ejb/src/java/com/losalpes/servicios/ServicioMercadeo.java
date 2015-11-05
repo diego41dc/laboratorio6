@@ -16,4 +16,5 @@ public class ServicioMercadeo implements IServicioMercadeoLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    //TODO usar la clase ServicioVenddedoresMock como ejemplo
 }

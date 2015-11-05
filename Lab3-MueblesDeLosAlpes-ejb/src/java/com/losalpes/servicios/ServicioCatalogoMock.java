@@ -120,4 +120,5 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockRemote,IServic
         return persistencia.findAll(Mueble.class);
     }
 
+    
 }
