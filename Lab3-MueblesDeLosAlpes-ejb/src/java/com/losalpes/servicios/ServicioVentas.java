@@ -5,6 +5,7 @@
  */
 package com.losalpes.servicios;
 
+import com.losalpes.entities.Promocion;
 import com.losalpes.entities.Vendedor;
 import com.losalpes.excepciones.OperacionInvalidaException;
 import java.util.logging.Level;
@@ -56,7 +57,7 @@ public class ServicioVentas implements IServicioVentasLocal {
         }
         try
         {
-            notificarModificacionVendedor();
+            notificarModificacionPromocion();
         } catch (JMSException ex)
         {
             Logger.getLogger(ServicioVendedoresMock.class.getName()).log(Level.SEVERE, "Error "
@@ -66,9 +67,9 @@ public class ServicioVentas implements IServicioVentasLocal {
     
     public Message createModificacionPromocionMessage(Session session) throws JMSException
     {
-        String msg = /*"Vendedor: " + cVendedor.getNombres()+" "+cVendedor.getApellidos() + "\n";
-        msg += "Cargo: " + cVendedor.getPerfil() + "\n";
-        msg += "Salario: " + cVendedor.getSalario() + "\n"*/ "Aqui va el mensaje";//TODO modificar por el mensaje que va
+        String msg = /*"Vendedor: " + cPromocion.getNombres()+" "+cPromocion.getApellidos() + "\n";
+        msg += "Cargo: " + cPromocion.getPerfil() + "\n";
+        msg += "Salario: " + cPromocion.getSalario() + "\n"*/ "Aqui va el mensaje";//TODO modificar por el mensaje que va
         TextMessage tm = session.createTextMessage();
         tm.setText(msg);
         return tm;
