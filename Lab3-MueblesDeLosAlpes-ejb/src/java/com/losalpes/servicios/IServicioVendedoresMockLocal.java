@@ -16,6 +16,9 @@ import com.losalpes.entities.Vendedor;
 import com.losalpes.excepciones.OperacionInvalidaException;
 import java.util.List;
 import javax.ejb.Local;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 
 
 /**
@@ -44,4 +47,19 @@ public interface IServicioVendedoresMockLocal
      * @return vendedores Vendedores del sistema
      */
     public List<Vendedor> getVendedores();
+    
+    /**
+     * 
+     * @param session
+     * @return
+     * @throws JMSException 
+     */
+    public Message createModificacionVendendorMessage(Session session) throws JMSException;
+    
+    /**
+     * 
+     * @throws JMSException 
+     */
+    public void notificarModificacionVendedor() throws JMSException;
+    
 }

@@ -131,7 +131,8 @@ public class ServicioVendedoresMock implements IServicioVendedoresMockRemote, IS
      * @return
      * @throws JMSException 
      */
-    private Message createModificacionVendendorMessage(Session session) throws JMSException
+    @Override
+    public Message createModificacionVendendorMessage(Session session) throws JMSException
     {
         String msg = "Vendedor: " + cVendedor.getNombres()+" "+cVendedor.getApellidos() + "\n";
         msg += "Cargo: " + cVendedor.getPerfil() + "\n";
@@ -145,7 +146,8 @@ public class ServicioVendedoresMock implements IServicioVendedoresMockRemote, IS
      * 
      * @throws JMSException 
      */
-    private void notificarModificacionVendedor() throws JMSException 
+    @Override
+    public void notificarModificacionVendedor() throws JMSException 
      {
         Connection connection = connectionFactory.createConnection();
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);

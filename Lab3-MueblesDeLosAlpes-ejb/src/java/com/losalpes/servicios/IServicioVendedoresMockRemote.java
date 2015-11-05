@@ -16,6 +16,9 @@ import com.losalpes.entities.Vendedor;
 import com.losalpes.excepciones.OperacionInvalidaException;
 import java.util.List;
 import javax.ejb.Remote;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 
 /**
  * Contrato funcional de los servicios de administración de los vendedores del sistema
@@ -43,4 +46,19 @@ public interface IServicioVendedoresMockRemote
      * @return vendedores Vendedores del sistema
      */
     public List<Vendedor> getVendedores();
+    
+    
+    /**
+     * 
+     * @param session
+     * @return
+     * @throws JMSException 
+     */
+    public Message createModificacionVendendorMessage(Session session) throws JMSException;
+    
+    /**
+     * 
+     * @throws JMSException 
+     */
+    public void notificarModificacionVendedor() throws JMSException;
 }
