@@ -1,2 +1,5 @@
 /build/
 /dist/
+/nbproject/private/
+/Lab3-MueblesDeLosAlpes-war/nbproject/private/
+/Lab3-MueblesDeLosAlpes-ejb/nbproject/private/

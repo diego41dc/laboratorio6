@@ -6,17 +6,20 @@
 package com.losalpes.servicios;
 
 import com.losalpes.entities.Mueble;
+import com.losalpes.entities.Promocion;
 import javax.ejb.Remote;
 
 /**
- *
+ * Interfaz que tiene el servicio del CallCenter Remoto
  * @author da.lozano13
  */
 @Remote
-public interface IServicioMercadeoRemote {
+public interface IServicioCallCenterRemote {
+    
     /**
-     * Registro de informacion del producto
+     * Registro de informacion de la promocion
+     * @param promocion 
      * @param mueble 
-     */ 
-    public void registrarProductoPromocion(Mueble mueble);
+     */
+    public void registrarPromocion(Promocion promocion, Mueble mueble);
 }

@@ -5,19 +5,20 @@
  */
 package com.losalpes.servicios;
 
+import com.losalpes.entities.Mueble;
 import com.losalpes.entities.Promocion;
 import javax.ejb.Local;
 
 /**
- * Interfaz que tiene el servicio del Ventas Local
+ ** Interfaz que tiene el servicio del CallCenter Local
  * @author da.lozano13
  */
 @Local
-public interface IServicioVentasLocal {
-    
-    /**
-     * Crea una promocion
+public interface IServicioCallCenterLocal {
+     /**
+     * Registro de informacion de la promocion
      * @param promocion 
+     * @param mueble 
      */
-    public void crearPromocion(Promocion promocion);
+    public void registrarPromocion(Promocion promocion, Mueble mueble);
 }

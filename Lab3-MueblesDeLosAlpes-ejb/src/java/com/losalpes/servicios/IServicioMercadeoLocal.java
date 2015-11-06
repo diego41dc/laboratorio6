@@ -5,6 +5,7 @@
  */
 package com.losalpes.servicios;
 
+import com.losalpes.entities.Mueble;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +14,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface IServicioMercadeoLocal {
-    
+    /**
+     * Registro de informacion del producto
+     * @param mueble 
+     */ 
+    public void registrarProductoPromocion(Mueble mueble);
 }

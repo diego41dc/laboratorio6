@@ -12,6 +12,8 @@
 
 package com.losalpes.entities;
 
+import java.util.Date;
+
 /**
  * Clase que representa una promocion en el sistema
  * 
@@ -27,16 +29,16 @@ public class Promocion
      * Nombre de la promocion
      */
     private String nombre;
+       
+    private String descripcion;
+    
+    private Date fechaInicio;
+    
+    private Date fechaFinalizacion;
+    
+    private Mueble mueble;
 
-    /**
-     * Devuelve el nombre de la ciudad
-     * @return nombre Nombre de la ciudad
-     */
-    public String getNombre()
-    {
-        return nombre;
-    }
-
+    
     //-----------------------------------------------------------
     // Constructores
     //-----------------------------------------------------------
@@ -49,26 +51,65 @@ public class Promocion
 
     }
 
+    
     /**
      * Constructor de la clase (con argumentos)
      * @param nombre
+     * @param descripcion
+     * @param fechaInicio
+     * @param fechaFinalizacion 
      */
-    public Promocion(String nombre)
+    public Promocion(String nombre, String descripcion, Date fechaInicio, Date fechaFinalizacion, Mueble mueble)
     {
         this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinalizacion = fechaFinalizacion;
+        this.mueble = mueble;
     }
 
     //-----------------------------------------------------------
     // Getters y setters
     //-----------------------------------------------------------
 
-    /**
-     * Modifica el nombre de la ciudad
-     * @param nombre Nuevo nombre de la ciudad
-     */
-    public void setNombre(String nombre)
-    {
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFinalizacion() {
+        return fechaFinalizacion;
+    }
+
+    public void setFechaFinalizacion(Date fechaFinalizacion) {
+        this.fechaFinalizacion = fechaFinalizacion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Mueble getMueble() {
+        return mueble;
+    }
+
+    public void setMueble(Mueble mueble) {
+        this.mueble = mueble;
     }
 
 }

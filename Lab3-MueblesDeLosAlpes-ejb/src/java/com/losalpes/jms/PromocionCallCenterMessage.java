@@ -5,10 +5,14 @@
  */
 package com.losalpes.jms;
 
+import com.losalpes.entities.Mueble;
+import com.losalpes.entities.Promocion;
+import com.losalpes.servicios.IServicioCallCenterLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
@@ -17,7 +21,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 /**
- *
+ * Clase que atiende los MDB de CallCenter
  * @author da.lozano13
  */
 @MessageDriven(activationConfig = {
@@ -32,6 +36,9 @@ public class PromocionCallCenterMessage implements MessageListener {
     @Resource
     private MessageDrivenContext mdc;
     
+    @EJB
+    private IServicioCallCenterLocal scc;
+    
     public PromocionCallCenterMessage() {
     }
     
@@ -42,8 +49,11 @@ public class PromocionCallCenterMessage implements MessageListener {
             if (message instanceof TextMessage) {
                 msg = (TextMessage) message;
                 Logger.getLogger(PromocionCallCenterMessage.class.getName()).log(Level.INFO,
-                        "Área CallCenter: Se ha recibido la notificación de promoción de producto \n"
-                        + msg.getText());
+                        "Área CallCenter: Se ha recibido la notificación de promoción: "
+                        + msg.getStringProperty("CallCenter"));
+                scc.registrarPromocion((Promocion)msg.getObjectProperty("Promocion"),
+                        (Mueble)msg.getObjectProperty("Producto"));
+                
             } else {
                 Logger.getLogger(PromocionCallCenterMessage.class.getName()).log(Level.SEVERE,
                         "Mensaje de tipo equivocado: " + message.getClass().getName());

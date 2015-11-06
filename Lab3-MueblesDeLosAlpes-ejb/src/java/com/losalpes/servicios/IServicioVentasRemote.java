@@ -5,13 +5,18 @@
  */
 package com.losalpes.servicios;
 
+import com.losalpes.entities.Promocion;
 import javax.ejb.Remote;
 
 /**
- *
+ * Interfaz que tiene el servicio del Ventas Remota
  * @author da.lozano13
  */
 @Remote
 public interface IServicioVentasRemote {
-    
+    /**
+     * Crea una promocion
+     * @param promocion 
+     */
+    public void crearPromocion(Promocion promocion);
 }

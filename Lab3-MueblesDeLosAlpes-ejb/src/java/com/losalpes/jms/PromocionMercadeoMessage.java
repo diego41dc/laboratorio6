@@ -5,10 +5,13 @@
  */
 package com.losalpes.jms;
 
+import com.losalpes.entities.Mueble;
+import com.losalpes.servicios.IServicioMercadeoLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
@@ -17,7 +20,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 /**
- *
+ * Clase que atiende los MDB de Mercadeo
  * @author da.lozano13
  */
 @MessageDriven(activationConfig = {
@@ -32,6 +35,9 @@ public class PromocionMercadeoMessage implements MessageListener {
     @Resource
     private MessageDrivenContext mdc;
     
+    @EJB
+    private IServicioMercadeoLocal sm;
+    
     public PromocionMercadeoMessage() {
     }
     
@@ -42,8 +48,9 @@ public class PromocionMercadeoMessage implements MessageListener {
             if (message instanceof TextMessage) {
                 msg = (TextMessage) message;
                 Logger.getLogger(PromocionMercadeoMessage.class.getName()).log(Level.INFO,
-                        "Área Mercadeo: Se ha recibido la notificación de promoción de producto \n"
-                        + msg.getText());
+                        "Área Mercadeo: Se ha recibido la notificación de promoción: "
+                        + msg.getStringProperty("Mercadeo"));
+                sm.registrarProductoPromocion((Mueble)msg.getObjectProperty("Producto"));
             } else {
                 Logger.getLogger(PromocionMercadeoMessage.class.getName()).log(Level.SEVERE,
                         "Mensaje de tipo equivocado: " + message.getClass().getName());
