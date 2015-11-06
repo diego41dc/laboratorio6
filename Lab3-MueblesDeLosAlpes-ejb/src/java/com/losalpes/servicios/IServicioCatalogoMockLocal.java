@@ -13,8 +13,13 @@
 package com.losalpes.servicios;
 
 import com.losalpes.entities.Mueble;
+import com.losalpes.entities.Promocion;
+import com.losalpes.excepciones.OperacionInvalidaException;
 import java.util.List;
 import javax.ejb.Local;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 
 /**
  * Contrato funcional de los servicios que se le prestan al catálogo
@@ -47,5 +52,23 @@ public interface IServicioCatalogoMockLocal
      * @param id Identificador único del mueble
      */
     public void removerEjemplarMueble(long id);
+    
+    
+    /**
+     * Agrega una nueva promocion
+     * @param promocion
+     * @param mueble
+     * @throws OperacionInvalidaException 
+     */
+    public void agregarPromocion(Promocion promocion, Mueble mueble) throws OperacionInvalidaException;
+    
+    
+    /**
+     * Crea el mensaje de la promocion
+     * @param session
+     * @return
+     * @throws JMSException
+     */
+    public Message createPromocionMessage(Session session) throws JMSException;
 
 }
