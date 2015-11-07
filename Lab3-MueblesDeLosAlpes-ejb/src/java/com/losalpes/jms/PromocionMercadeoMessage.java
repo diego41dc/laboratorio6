@@ -5,7 +5,7 @@
  */
 package com.losalpes.jms;
 
-import com.losalpes.entities.Mueble;
+import com.losalpes.entities.Promocion;
 import com.losalpes.servicios.IServicioMercadeoLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +21,7 @@ import javax.jms.TextMessage;
 
 /**
  * Clase que atiende los MDB de Mercadeo
+ *
  * @author da.lozano13
  */
 @MessageDriven(activationConfig = {
@@ -31,26 +32,30 @@ import javax.jms.TextMessage;
     @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "jms/promocionTopic")
 })
 public class PromocionMercadeoMessage implements MessageListener {
-    
+
     @Resource
     private MessageDrivenContext mdc;
-    
+
     @EJB
     private IServicioMercadeoLocal sm;
-    
+
     public PromocionMercadeoMessage() {
     }
-    
+
     @Override
     public void onMessage(Message message) {
         TextMessage msg = null;
         try {
             if (message instanceof TextMessage) {
                 msg = (TextMessage) message;
-                Logger.getLogger(PromocionMercadeoMessage.class.getName()).log(Level.INFO,
-                        "Área Mercadeo: Se ha recibido la notificación de promoción: "
-                        + msg.getStringProperty("Mercadeo"));
-                sm.registrarProductoPromocion((Mueble)msg.getObjectProperty("Producto"));
+
+                Promocion promocion = (Promocion) msg.getObjectProperty("Promocion");
+
+                Logger.getLogger(PromocionCallCenterMessage.class.getName()).log(Level.INFO,
+                        "Área Mercadeo: Se ha recibido la notificación de una nueva promoción");
+
+                sm.registrarProductoPromocion(promocion.getMueble());
+
             } else {
                 Logger.getLogger(PromocionMercadeoMessage.class.getName()).log(Level.SEVERE,
                         "Mensaje de tipo equivocado: " + message.getClass().getName());
@@ -62,5 +67,5 @@ public class PromocionMercadeoMessage implements MessageListener {
             te.printStackTrace();
         }
     }
-    
+
 }

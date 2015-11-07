@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : catalogo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="titulo" value="Catálogo de Promociones" />
+    <ui:define name="body">
+
+        <h:form>
+            <div align="right" style="padding-right: 10px">
+                <h:commandButton style="background: transparent" image="./resources/img/pag/atras.png" action="menu.jsf"/>
+            </div>
+        </h:form>
+        <h:outputText id="linkHeader"
+                      value="Administración de Promociones" style="color:white"/>
+        <p:fieldset legend="Promociones del Sistema">
+            <h:form>
+                <!-- Panel para agregar un nueva promocion -->
+                <h:panelGroup>
+                    <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+                        <h:outputLabel for="TxtCodigo"
+                                       value="Codigo"/>
+                        <h:inputText id="TxtCodigo"
+                                     size="20"
+                                     maxlength="20"
+                                     label="Codigo"
+                                     value="#{promocionBean.promocion.codigo}"
+                                     required="true"
+                                     >
+                            <f:validateLength minimum="1"/>
+                        </h:inputText>
+                        <h:message id="nameMsg" for="TxtCodigo" />
+                    </h:panelGrid>
+
+                    <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+                        <h:outputLabel for="TxtNombre"
+                                       value="Nombre" />
+                        <h:inputText id="TxtNombre"
+                                     maxlength="20"
+                                     size="20"
+                                     value="#{promocionBean.promocion.nombre}"
+                                     label="Nombre"
+                                     required="true">
+                            <f:validateLength minimum="1"/>
+                        </h:inputText>
+                        <h:message id="pwMsg" for="TxtNombre" />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1" width="100px"
+                                 columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+
+                        <h:outputLabel for="TxtDescripcion" value="Descripción" />
+                        <h:inputTextarea id="TxtDescripcion"
+                                         value="#{promocionBean.promocion.descripcion}"
+                                         rows="4" style="width: 125px"
+                                         label="Descripción"
+                                         >
+                            <f:validateLength minimum="1"/>
+
+                        </h:inputTextarea>
+                        <h:message id="descMsg" for="TxtDescripcion" />
+
+                    </h:panelGrid>
+
+                    <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+                        <h:outputLabel for="TxtFechaInicio"
+                                       value="Fecha Inicio" />
+                        <p:calendar id="TxtFechaInicio" showOn="button" navigator="true"
+                                    pattern="dd/MM/yyyy"
+                                    locale="es"
+                                    label="Fecha Inicio"
+                                    required="true"
+                                    value="#{promocionBean.promocion.fechaInicio}"  />
+                        <h:message id="pwMsg" for="TxtFechaInicio" />
+                    </h:panelGrid>
+
+                    <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+                        <h:outputLabel for="TxtFechaFin"
+                                       value="Fecha Finalización" />
+                        <p:calendar id="TxtFechaInicio" showOn="button" navigator="true"
+                                    pattern="dd/MM/yyyy"
+                                    locale="es"
+                                    label="Fecha Finalización"
+                                    required="true"
+                                    value="#{promocionBean.promocion.fechaFinalizacion}"  />
+                        <h:message id="pwMsg" for="TxtFechaFin" />
+                    </h:panelGrid>
+
+
+
+                    <h:commandButton value="Agregar" action="#{promocionBean.agregarPromocion}" />
+                    <h:commandButton value="Nuevo" action="#{promocionBean.limpiar}" />
+                </h:panelGroup>
+
+            </h:form>
+        </p:fieldset>
+        <h:form>
+
+
+            <!-- Se crea una tabla donde se presentan las promociones del sistema -->
+            <p:dataTable
+                id="data"
+                value="#{promocionBean.promociones}"
+                var="file"
+                scrollable="false"
+                scrollHeight="100px"
+                paginator="true"
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                resizableColumns="true"
+                rows="5">
+
+
+                <p:column headerText="Codigo" sortBy="#{file.codigo}">
+                    <h:outputText value="#{file.codigo}" />
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{file.nombre}" />
+                </p:column>
+
+                <p:column headerText="Descripción">
+                    <h:outputText value="#{file.descripcion}" />
+                </p:column>
+
+                <p:column headerText="Fecha Inicio">
+                    <h:outputText value="#{file.fechaInicio}" />
+                </p:column>
+
+                <p:column headerText="Fecha Finalizacion">
+                    <h:outputText value="#{file.fechaFinalizacion}" />
+                </p:column>
+
+                <p:column headerText="Mueble">
+                    <h:outputText value="#{empty file.mueble? 'Promoción No Asignada' : file.mueble.nombre}" />
+                </p:column>
+
+                <p:column headerText="Eliminar">
+                    <h:commandLink actionListener="#{promocionBean.eliminarPromocion}"
+                                   value="Eliminar" >
+                        <f:param name="promocionId" value="#{file.codigo}" />
+                    </h:commandLink>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+    </ui:define>
+
+
+</ui:composition>

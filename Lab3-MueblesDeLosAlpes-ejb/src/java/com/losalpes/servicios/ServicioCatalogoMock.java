@@ -51,10 +51,6 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockRemote, IServi
     @Resource(mappedName = "jms/promocionTopic")
     private Topic topic;
 
-    private Mueble cMueble;
-
-    private Promocion cPromocion;
-
     //-----------------------------------------------------------
     // Constructor
     //-----------------------------------------------------------
@@ -128,24 +124,61 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockRemote, IServi
     }
 
     /**
-     * Agrega una nueva promocion al sistema
+     * Devuelve las promociones del sistema
+     *
+     * @return muebles Arreglo con todos las promociones del sistema
+     */
+    @Override
+    public List<Promocion> darPromociones() {
+        return persistencia.findAll(Promocion.class);
+    }
+
+    /**
+     * Crea una promocion en el Sistema sin asosicar a un mueble
+     *
+     * @param promocion
+     */
+    @Override
+    public void agregarPromocion(Promocion promocion) {
+
+    }
+
+    /**
+     * Se elimina una promocion del sistema dado su identificador único
+     *
+     * @param codigo Identificador único de la promocion
+     */
+    @Override
+    public void eliminarPromocion(String codigo) {
+        Promocion m = (Promocion) persistencia.findById(Promocion.class, codigo);
+        try {
+            persistencia.delete(m);
+        } catch (OperacionInvalidaException ex) {
+            Logger.getLogger(ServicioCatalogoMock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Asocia una promocion a un mueble del sistema y hace la notificacion de la
+     * nueva creacion de una promocion en un mueble
      *
      * @param promocion
      * @param mueble
      * @throws OperacionInvalidaException
      */
     @Override
-    public void agregarPromocion(Promocion promocion, Mueble mueble) throws OperacionInvalidaException {
+    public void asociarPromocion(final Promocion promocion, final Mueble mueble) throws OperacionInvalidaException {
 
         try {
-            cMueble = mueble;
-            cPromocion = promocion;
-            
+
+            promocion.setMueble(mueble);
+            mueble.addPromocion(promocion);
+
             Connection connection = connectionFactory.createConnection();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             MessageProducer messageProducer = session.createProducer((Destination) topic);
             try {
-                messageProducer.send(createPromocionMessage(session));
+                messageProducer.send(createPromocionMessage(session, promocion));
             } catch (JMSException ex) {
                 Logger.getLogger(ServicioCatalogoMock.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -163,23 +196,22 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockRemote, IServi
             }
         } catch (JMSException ex) {
             Logger.getLogger(ServicioCatalogoMock.class.getName()).log(Level.SEVERE, "Error "
-                    + "enviando la notificación de creación de un vendedor", ex);
+                    + "enviando la notificación de creación de una nueva promoción", ex);
         }
     }
 
     /**
      * Crea el mensaje de la promocion
+     *
      * @param session
      * @return
      * @throws JMSException
      */
-    @Override
-    public Message createPromocionMessage(Session session) throws JMSException {
-        String msg = "Creacion de promcion";
+    private Message createPromocionMessage(final Session session, final Promocion promocion) throws JMSException {
+        String msg = "Creacion de promoción";
         TextMessage tm = session.createTextMessage();
         tm.setText(msg);
-        tm.setObjectProperty("Promocion", cPromocion);
-        tm.setObjectProperty("Producto", cMueble);
+        tm.setObjectProperty("Promocion", promocion);
         return tm;
     }
 

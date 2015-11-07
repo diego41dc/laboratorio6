@@ -5,9 +5,10 @@
  */
 package com.losalpes.servicios;
 
-import com.losalpes.entities.Mueble;
 import com.losalpes.entities.Promocion;
-import javax.ejb.EJB;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 
 /**
@@ -17,19 +18,18 @@ import javax.ejb.Stateless;
 @Stateless
 public class ServicioCallCenterMock implements IServicioCallCenterLocal, IServicioCallCenterRemote {
 
-     /**
-     * Interface con referencia al servicio de persistencia en el sistema
-     */
-    @EJB
-    private IServicioPersistenciaMockLocal persistencia;
-    
     /**
      * Registro de la informacion de la promocion
-     * @param promocion 
+     *
+     * @param promocion
      */
     @Override
-    public void registrarPromocion(Promocion promocion, Mueble mueble){
-        //TODO usar la clase ServicioVenddedoresMock como ejemplo
+    public void registrarPromocion(Promocion promocion) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Logger.getLogger(ServicioCallCenterMock.class.getName()).log(Level.INFO,
+                "Área CallCenter: Se ha creado la Promoción '" + promocion.getNombre() + "' "
+                + "para el Producto '" + promocion.getMueble().getNombre() + "'. "
+                + "La promoción aplica desde el dia " + sdf.format(promocion.getFechaInicio()) + " hasta el dia " + sdf.format(promocion.getFechaFinalizacion()));
     }
-    
+
 }

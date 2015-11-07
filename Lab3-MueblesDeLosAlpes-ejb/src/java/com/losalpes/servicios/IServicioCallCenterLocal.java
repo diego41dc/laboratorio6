@@ -5,20 +5,21 @@
  */
 package com.losalpes.servicios;
 
-import com.losalpes.entities.Mueble;
 import com.losalpes.entities.Promocion;
 import javax.ejb.Local;
 
 /**
  ** Interfaz que tiene el servicio del CallCenter Local
+ *
  * @author da.lozano13
  */
 @Local
 public interface IServicioCallCenterLocal {
-     /**
+
+    /**
      * Registro de informacion de la promocion
-     * @param promocion 
-     * @param mueble 
+     *
+     * @param promocion
      */
-    public void registrarPromocion(Promocion promocion, Mueble mueble);
+    public void registrarPromocion(Promocion promocion);
 }

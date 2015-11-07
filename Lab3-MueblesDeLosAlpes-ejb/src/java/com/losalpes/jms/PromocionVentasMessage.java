@@ -21,6 +21,7 @@ import javax.jms.TextMessage;
 
 /**
  * Clase que atiende los MDB de Ventas
+ *
  * @author da.lozano13
  */
 @MessageDriven(activationConfig = {
@@ -31,37 +32,40 @@ import javax.jms.TextMessage;
     @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "jms/promocionTopic")
 })
 public class PromocionVentasMessage implements MessageListener {
-    
+
     @Resource
     private MessageDrivenContext mdc;
-    
+
     @EJB
     private IServicioVentasLocal sv;
-     
+
     public PromocionVentasMessage() {
     }
-    
+
     @Override
     public void onMessage(Message message) {
         TextMessage msg = null;
         try {
             if (message instanceof TextMessage) {
                 msg = (TextMessage) message;
-               
-                Logger.getLogger(PromocionVentasMessage.class.getName()).log(Level.INFO,
-                        "Área ventas: Se ha recibido la notificación de promoción: "
-                                + msg.getStringProperty("Ventas"));
-               sv.crearPromocion((Promocion)msg.getObjectProperty("Promocion"));
+
+                Promocion promocion = (Promocion) msg.getObjectProperty("Promocion");
+
+                Logger.getLogger(PromocionCallCenterMessage.class.getName()).log(Level.INFO,
+                        "Área Ventas: Se ha recibido la notificación de una nueva promoción");
+
+                sv.crearPromocion(promocion);
+
             } else {
                 Logger.getLogger(PromocionVentasMessage.class.getName()).log(Level.SEVERE,
                         "Mensaje de tipo equivocado: " + message.getClass().getName());
             }
         } catch (JMSException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
             mdc.setRollbackOnly();
         } catch (Throwable te) {
-            te.printStackTrace();
+            te.printStackTrace(System.out);
         }
     }
-    
+
 }

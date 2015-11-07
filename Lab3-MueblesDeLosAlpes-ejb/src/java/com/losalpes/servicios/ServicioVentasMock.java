@@ -6,7 +6,8 @@
 package com.losalpes.servicios;
 
 import com.losalpes.entities.Promocion;
-import javax.ejb.EJB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 
 /**
@@ -16,23 +17,16 @@ import javax.ejb.Stateless;
 @Stateless
 public class ServicioVentasMock implements IServicioVentasLocal, IServicioVentasRemote {
 
-   /**
-     * Interface con referencia al servicio de persistencia en el sistema
-     */
-    @EJB
-    private IServicioPersistenciaMockLocal persistencia;
-
     /**
-     * Crea una promocion
-     * @param promocion 
+     * Creda una promocion
+     *
+     * @param promocion
      */
     @Override
     public void crearPromocion(Promocion promocion) {
-         //TODO usar la clase ServicioVenddedoresMock como ejemplo
+        Logger.getLogger(ServicioVentasMock.class.getName()).
+                log(Level.INFO, "Área ventas: Se creó la Promoción '"
+                        + promocion.getNombre() + "'  para el Mueble '" + promocion.getMueble().getNombre() + "'");
     }
-    
-    
-   
-    
-   
+
 }
