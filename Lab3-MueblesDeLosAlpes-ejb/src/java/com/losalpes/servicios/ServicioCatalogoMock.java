@@ -140,7 +140,11 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockRemote, IServi
      */
     @Override
     public void agregarPromocion(Promocion promocion) {
-
+        try {
+            persistencia.create(promocion);
+        } catch (OperacionInvalidaException ex) {
+            Logger.getLogger(ServicioCatalogoMock.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -172,7 +176,7 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockRemote, IServi
         try {
 
             promocion.setMueble(mueble);
-            mueble.addPromocion(promocion);
+            persistencia.update(promocion);
 
             Connection connection = connectionFactory.createConnection();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
